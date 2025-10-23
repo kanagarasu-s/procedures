@@ -87,12 +87,13 @@ sudo systemctl enable prometheus
 ```sh
 sudo systemctl status prometheus
 ```
-### Edit your Prometheus config (prometheus.yml):
+### To Edit your Prometheus config (prometheus.yml):
 ```sh
 sudo vi /etc/prometheus/prometheus.yml
 ```
-and Restart
+Once you've edited the config file, restart Prometheus:
 ```sh
+sudo systemctl daemon-reload
 sudo systemctl restart prometheus
 ```
 
@@ -100,3 +101,8 @@ sudo systemctl restart prometheus
 #### Open your browser and go to:
 
 http://your-server-ip:9090
+
+### ✅ 7. To view the Prometheus Error logs:
+```sh
+sudo journalctl -u prometheus.service --no-pager -n 20
+```
