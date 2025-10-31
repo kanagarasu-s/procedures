@@ -1,12 +1,12 @@
-## ✅ Set up Grafana HTTPS for secure web traffic  
+## ✅ Set up Loki HTTPS for secure web traffic  
 
 ### 🧱 Prerequisites:
-Grafana  
+Loki  
 Nginx   
 
 ### Recommended to follow Official Documentation:
 ```
-https://grafana.com/docs/grafana/latest/setup-grafana/set-up-https/ 
+https://grafana.com/docs/loki/latest/configure/
 ```
 
 ### Install nginx (if not present)
@@ -54,7 +54,7 @@ certbot --version
 #### 🅰️ Option 1 — Standard Nginx (no Cloudflare proxy)
 If your domain points directly to your server (if proxied by Cloudflare-Temporarily disable proxy):
 ```sh
-sudo certbot --nginx -d grafana.bellita.co.in
+sudo certbot --nginx -d loki.pro1hs.com
 ```
 
 Certbot runs its own temporary web server (on port 80), You do not need Nginx.
@@ -72,16 +72,16 @@ Certificates are stored in:
 cd /etc/letsencrypt/live/
 ```
 
-### 🔁 STEP 7 Create Nginx site config for Grafana (manual method)
+### 🔁 STEP 7 Create Nginx site config for Loki (manual method)
 ```sh
-sudo nano /etc/nginx/sites-available/grafana.bellita.co.in.conf
+sudo nano /etc/nginx/sites-available/loki.pro1hs.com.conf
 ```
 paste the following:
 ```sh
 # Redirect all HTTP (port 80) requests to HTTPS (port 443)
 server {
     listen 80;
-    server_name grafana.bellita.co.in;
+    server_name loki.pro1hs.com;
 # Redirect all HTTP -> HTTPS
     return 301 https://$host$request_uri;
 }
@@ -89,11 +89,11 @@ server {
 # HTTPS server block
 server {
     listen 443 ssl http2;
-    server_name grafana.bellita.co.in;
+    server_name loki.pro1hs.com;
 
     # SSL certificate and key
-    ssl_certificate /etc/letsencrypt/live/grafana.bellita.co.in/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/grafana.bellita.co.in/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/loki.pro1hs.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/loki.pro1hs.com/privkey.pem;
 
     # Recommended SSL settings
     ssl_session_cache shared:SSL:10m;
@@ -104,9 +104,9 @@ server {
     # Optional: force HTTPS for future requests
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
 
-    # Proxy requests to Grafana running locally on port 3000
+    # Proxy requests to Loki running locally on port 3000
     location / {
-        proxy_pass http://127.0.0.1:3000/;
+        proxy_pass http://127.0.0.1:3100/;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -126,7 +126,7 @@ server {
 ```
 Enable and test:
 ```sh
-sudo ln -s /etc/nginx/sites-available/grafana.bellita.co.in.conf /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/loki.pro1hs.com.conf /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl reload nginx
 ```
@@ -135,58 +135,15 @@ Check Nginx status:
 sudo systemctl status nginx
 ```
 
-### 🧾 STEP 8 — Configure Grafana HTTPS and restart Grafana  
-Open Grafana config:
-```sh
-sudo nano /etc/grafana/grafana.ini
-```
-
-edit the following configuration parameters Under the [server] section:
-```sh
-[server]
-# Bind only to localhost — Nginx proxies connections
-http_addr = 127.0.0.1
-http_port = 3000
-
-# Domain Grafana should use in generated URLs
-domain = grafana.bellita.co.in
-
-# This ensures links and redirects use https://grafana.bellita.co.in/
-root_url = https://grafana.bellita.co.in/
-
-# If you serve Grafana from a sub-path, set true (not needed here)
-serve_from_sub_path = false
-
-# Optional
-;cert_key = /etc/grafana/grafana.key
-;cert_file = /etc/grafana/grafana.crt
-;enforce_domain = False
-;protocol = https
-```
-
-Save and restart Grafana:
-```sh
-sudo systemctl restart grafana-server
-```
-Check Grafana Service Status
-```sh
-sudo systemctl status grafana-server
-```
-You should see output indicating that Grafana is active and running.
-
-### Step 9 Access Grafana Web UI
+### Step 8 Access Loki Web UI
 Open your browser and go to:
 ```sh
-https://grafana.bellita.co.in/ # use your domain name
+https://loki.pro1hs.com/ # use your domain name
 ```
 
-Default login:
-Username: admin
-Password: admin (you’ll be prompted to change it on first login)
-
-### 🧾 If something fails, check Grafana and Nginx logs:
+### 🧾 If something fails, check Loki and Nginx logs:
 ```sh
-sudo journalctl -u grafana-server -e
+sudo journalctl -u loki -f
 ```
 ```sh
 sudo tail -n 200 /var/log/nginx/error.log

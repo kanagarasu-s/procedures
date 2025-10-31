@@ -43,21 +43,105 @@ cd /opt/loki
 ```
 Create a File for Loki Config:
 ```sh
-sudo vi loki-local-config.yaml
+sudo nano /opt/loki/loki-local-config.yaml
 ```
+##### This is modified Loki Config:
+paste the following
+```sh
+auth_enabled: false
+
+server:
+  http_listen_port: 3100
+  grpc_listen_port: 9096
+  log_level: debug
+  grpc_server_max_concurrent_streams: 1000
+
+common:
+  instance_addr: 127.0.0.1
+  path_prefix: /tmp/loki
+  storage:
+    filesystem:
+      chunks_directory: /tmp/loki/chunks
+      rules_directory: /tmp/loki/rules
+  replication_factor: 1
+  ring:
+    kvstore:
+      store: memberlist
+
+memberlist:
+  join_members:
+    - 127.0.0.1
+
+query_range:
+  results_cache:
+    cache:
+      embedded_cache:
+        enabled: true
+        max_size_mb: 100
+
+limits_config:
+  metric_aggregation_enabled: true
+  enable_multi_variant_queries: true
+  allow_structured_metadata: false
+  retention_period: 336h  # 14 days in hours
+
+schema_config:
+  configs:
+    - from: 2020-10-24
+      store: tsdb
+      object_store: filesystem
+      schema: v13
+      index:
+        prefix: index_
+        period: 24h
+
+ingester:
+  chunk_idle_period: 5m
+  chunk_retain_period: 30s
+  max_chunk_age: 1h
+
+compactor:
+  working_directory: /tmp/loki/compactor
+  retention_enabled: true
+  delete_request_store: filesystem
+  #shared_store: filesystem
+
+pattern_ingester:
+  enabled: true
+  metric_aggregation:
+    loki_address: localhost:3100
+
+ruler:
+  alertmanager_url: http://localhost:9093
+
+frontend:
+  encoding: protobuf
+
+#analytics:
+#reporting_enabled: false
+```
+OR  
 This main option get the latest official Loki Config:
 ```sh
 wget https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml
 ```
-##### This is modified Loki Config:
-```
-https://github.com/system-sudo/procedures/blob/main/observability/loki/loki_config.md
-```
+
 #### 6. To verify installation, we can check Loki version.
 ```sh
 loki -version
 ```
-#### 7: Setup Loki as service.
+#### 7. Create a dedicated Loki user (for security)
+It’s best practice to run Loki under a non-root user.
+```sh
+sudo useradd --no-create-home --shell /usr/sbin/nologin loki
+```
+Give ownership of Loki’s working directory:
+```sh
+sudo chown -R loki:loki /opt/loki
+sudo mkdir -p /tmp/loki
+sudo chown -R loki:loki /tmp/loki
+```
+#### 8: Setup Loki as service.
 Create a systemd unit file.
 ```sh
 sudo nano /etc/systemd/system/loki.service
@@ -69,21 +153,25 @@ Description=Loki Log Aggregation System
 After=network.target
 
 [Service]
-User=root
+Type=simple
+User=loki
+Group=loki
 ExecStart=/usr/local/bin/loki --config.file=/opt/loki/loki-local-config.yaml
-Restart=always
+Restart=on-failure
+RestartSec=5
 LimitNOFILE=65536
+TimeoutStopSec=20
 
 [Install]
 WantedBy=multi-user.target
 ```
-#### 8. Enable and Start Loki.
+#### 9. Enable and Start Loki.
 ```sh
 sudo systemctl daemon-reload
 sudo systemctl enable loki
 sudo systemctl start loki
 ```
-#### 9.Verify that Loki is running.
+#### 10.Verify that Loki is running.
 ```sh
 sudo systemctl restart loki
 ```
@@ -91,8 +179,10 @@ sudo systemctl restart loki
 sudo systemctl status loki
 ```
 Check Loki’s metrics endpoint:  
+```sh
 http://ip:3100/metrics
-### 10. Check Loki logs (for any Errors):
+```
+### 11. Check Loki logs (for any Errors):
 Loki logs errors before crashing:
 ```sh
 sudo journalctl -u loki.service --no-pager | tail -n 50
