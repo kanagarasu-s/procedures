@@ -15,7 +15,11 @@ sudo curl -sS https://www.cloudflare.com/ips-v6 -o /var/tmp/cloudflare/ips-v6.tx
 
 ### Create the remoteip conf that uses CF-Connecting-IP header
 
-remoteip conf will be created at " /etc/apache2/conf-available "
+remoteip conf will be created at 
+```sh
+cd /etc/apache2/conf-available
+```
+
 ```sh
 sudo bash <<'EOF'
 CFIPS="$( (cat /var/tmp/cloudflare/ips-v4.txt; echo; cat /var/tmp/cloudflare/ips-v6.txt) | xargs )"
@@ -86,7 +90,7 @@ sudo systemctl reload apache2
 ```
 ### Verify
 ```sh
-sudo tail -n 20 /var/log/apache2/access.log
+sudo tail -f /var/log/apache2/access.log
 ```
 
 ### Updating Cloudflare IPs
