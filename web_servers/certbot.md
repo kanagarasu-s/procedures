@@ -41,8 +41,22 @@ Certbot runs its own temporary web server (on port 80), You do not need Nginx.
 ```sh
 sudo certbot certonly --standalone
 ```
+Test SSL from Terminal
+```sh
+curl -Iv https://demo1.trstscore.com
+```
 
-### 🔁 STEP 6 — Test automatic renewal of SSl Cert
+### 🔁 STEP 6 — Test automatic renewal of SSL Cert
+Check if certbot.timer is Active.
+```sh
+sudo systemctl status certbot.timer
+```
+If not then Enable it.
+```sh
+sudo systemctl enable certbot.timer
+sudo systemctl start certbot.timer
+```
+Then Run:
 ```sh
 sudo certbot renew --dry-run
 ```
@@ -51,3 +65,28 @@ Certificates are stored in:
 ```sh
 cd /etc/letsencrypt/live/
 ```
+
+### 🔁 STEP 7 — Steps to Remove Certificates
+Check existing certificates:
+```sh
+sudo certbot certificates
+```
+Delete the specific certificate:
+```sh
+sudo certbot delete --cert-name apis.bellita.co.in
+sudo certbot delete --cert-name back1919.bellita.co.in
+```
+Verify removal:
+```sh
+sudo certbot certificates
+```
+Clean up files manually (optional)
+```sh
+rm -rf /etc/letsencrypt/live/apis.bellita.co.in
+rm -rf /etc/letsencrypt/archive/apis.bellita.co.in
+rm -rf /etc/letsencrypt/renewal/apis.bellita.co.in.conf
+```
+⚠ Important:
+
+Use certbot delete first to avoid breaking renewal configs.
+Removing manually without certbot delete can cause renewal errors later.
