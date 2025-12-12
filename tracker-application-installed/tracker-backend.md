@@ -15,7 +15,15 @@ git clone https://github.com/SQ1Security/tracker-backend-v2.git
 ## create .env file tracker backend
 
 
-
+## apache install
+```
+sudo apt install apache2
+```
+## apache services status
+```
+sudo systemctl start apache2
+sudo systemctl status apache2
+```
 ## php install
 
 ```
