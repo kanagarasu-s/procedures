@@ -1,7 +1,7 @@
 MySQL db install:
 =================
 
-##MySQL installed
+## MySQL installed
 
 ```
 sudo apt install mysql-server
