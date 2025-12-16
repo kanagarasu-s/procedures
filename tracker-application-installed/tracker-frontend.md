@@ -3,15 +3,70 @@
 
 ```
  cd /var/www/html
-
 ```
 
 ## clone git repo
 
 ```
-git clone https://github.com/SQ1Security/tracker-frontend.git
-
+sudo git clone https://github.com/SQ1Security/tracker-frontend.git
 ```
+
+## Install build essentials
+```
+sudo apt update
+sudo apt install -y build-essential
+```
+
+## Install NVM (Official Script)
+```
+sudo curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+```
+
+## Load NVM into your shell
+```
+sudo source ~/.bashrc
+```
+
+## Verify NVM installation
+```
+sudo nvm -v
+```
+
+## Install Node.js with NVM
+```
+sudo nvm install --lts
+```
+
+## list nvm software
+```
+sudo nvm ls
+```
+
+## Set the application use latest Node version 
+```
+sudo nvm use latest version 
+```
+
+## check and verification node version
+```
+sudo node -v
+```
+
+## install pnpm
+```
+sudo npm install -g pnpm
+```
+
+## check and version
+```
+sudo pnpm -v
+```
+
+## install pnpm
+```
+sudo pnpm install
+```
+
 ## create .env file
 
 ```
@@ -31,67 +86,9 @@ VITE_APP_HUMANA_WAVE_2=16
 
 ```
 
-## Install build essentials
-
-```
-sudo apt update
-sudo apt install -y build-essential
-
-```
-## Install NVM (Official Script)
-
-```
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
-
-```
-
-## Load NVM into your shell
-
-```
-source ~/.bashrc
-
-```
-
-## Verify NVM installation
-
-```
-nvm -v
-
-```
-## Install Node.js with NVM
-
-```
-nvm install --lts
-
-```
-## list nvm software
-```
-nvm ls
-```
-## Set the application use latest Node version 
-
-```
-nvm use latest version 
-```
-## check and verification node version
-```
-node -v
-```
-## install pnpm
-```
-npm install -g pnpm
-```
-## check and version
-```
-pnpm -v
-```
-## install pnpm
-```
-pnpm install
-```
 ## create conf file and change servername ip address & name
 ```
-/etc/apache2/sites-available/
+sudo vi /etc/apache2/sites-available/
 ```
 ```
 <VirtualHost *:80>
@@ -169,23 +166,23 @@ sudo a2ensite 000-default.conf
 
 ## if you want disable configure
 ```
-a2dissite 000-default.conf
+sudo a2dissite 000-default.conf
 ```
 
 ## restart services
 ```
-systemctl restart apache2
-systemctl reload  apache2
+sudo systemctl restart apache2
+sudo systemctl reload  apache2
 ```
 
 ## build applicaton
 ```
-pnpm run build
+sudo pnpm run build
 ```
 
 ## copy file .htaccess
 ```
-cp .htaccess dist
+sudo cp .htaccess dist
 ```
 
 
