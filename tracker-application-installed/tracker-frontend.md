@@ -156,31 +156,33 @@ pnpm install
         #Include conf-available/serve-cgi-bin.conf
 </VirtualHost>
 ```
-## run this ensite
-```
-sudo a2ensite 000-default.conf
-```
-## if you want disable configure
-```
-a2dissite 000-default.conf
-```
-## apache service reload
-```
-systemctl reload apache2
-```
+
 ## run this enmod
 ```
 sudo a2enmod rewrite
 ```
+
+## run this ensite
+```
+sudo a2ensite 000-default.conf
+```
+
+## if you want disable configure
+```
+a2dissite 000-default.conf
+```
+
 ## restart services
 ```
 systemctl restart apache2
 systemctl reload  apache2
 ```
+
 ## build applicaton
 ```
 pnpm run build
 ```
+
 ## copy file .htaccess
 ```
 cp .htaccess dist
