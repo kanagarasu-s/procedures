@@ -97,6 +97,10 @@ sudo composer -V
 ```
 https://github.com/kanagarasu-s/procedures/blob/main/tracker-application-installed/mysql.md
 ```
+## projectl location
+```
+sudo cd /var/www/html/tracker-backend-v2
+```
 
 ## create .env file
 ```
@@ -284,7 +288,7 @@ sudo php artisan passport:client --personal
 authTOKEN
 ```
 
-## backend configure file
+## backend configure file location
 ```
 sudo vi /etc/apache2/sites-available/tracker-backend.conf
 ```
@@ -332,7 +336,7 @@ sudo vi /etc/apache2/sites-available/tracker-backend.conf
 ```
 ## go to application location
 ```
-cd /var/www/html/tracker-backend
+cd /var/www/html/tracker-backend-v2
 ```
 
 ## Enable the site
@@ -357,7 +361,7 @@ Listen 8082
 
 ## create this file location backend cors.php
 ```
-cd /var/www/html/tracker-backend/config
+cd /var/www/html/tracker-backend-v2/config
 ```
 ## create cors.php file
 ```
