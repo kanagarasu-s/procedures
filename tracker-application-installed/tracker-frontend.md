@@ -44,12 +44,28 @@ nvm ls
 
 ## Set the application use latest Node version 
 ```
-nvm use latest version 
+nvm use 24.12.0
 ```
 
 ## check and verification node version
 ```
 node -v
+```
+
+## Give ownership to ubuntu user
+```
+sudo chown -R ubuntu:ubuntu /var/www/html/tracker-frontend
+```
+
+## Set safe permissions
+```
+sudo find /var/www/html/tracker-frontend -type d -exec chmod 755 {} \;
+sudo find /var/www/html/tracker-frontend -type f -exec chmod 644 {} \;
+```
+
+## Now run pnpm (WITHOUT sudo)
+```
+cd /var/www/html/tracker-frontend
 ```
 
 ## install pnpm
@@ -59,19 +75,19 @@ npm install -g pnpm
 
 ## check and version
 ```
-sudo pnpm -v
+pnpm -v
 ```
 
 ## install pnpm
 ```
-sudo pnpm install
+ pnpm install
 ```
 
 ## create .env file
 
 ```
-VITE_APP_BACKEND_BASE_URL=http://beta.bellita.co.in:8085/api/
-VITE_APP_BACKEND_FILES_URL=http://beta.bellita.co.in:8085/evidences/
+VITE_APP_BACKEND_BASE_URL=http://beta.bellita.co.in:8082/api/
+VITE_APP_BACKEND_FILES_URL=http://beta.bellita.co.in:8082/evidences/
 VITE_APP_TAB_TITLE=Pro 1
 VITE_APP_SECRET_KEY=541f8551773b2f6a7cd5434d9fb51ad9bbb1cca3be49df30bea6bd08a0d54729
 GENERATE_SOURCEMAP=false
@@ -85,11 +101,11 @@ VITE_APP_PROMINENCE=17
 VITE_APP_HUMANA_WAVE_2=16
 
 ```
-
 ## create conf file and change servername ip address & name
 ```
 sudo vi /etc/apache2/sites-available/
 ```
+
 ```
 <VirtualHost *:80>
 
@@ -107,7 +123,7 @@ sudo vi /etc/apache2/sites-available/
 
         # However, you must set it for any further virtual host explicitly.
 
-        ServerName 13.201.89.218
+        ServerName 35.154.125.140
 
         DocumentRoot /var/www/html/tracker-frontend/dist
 
@@ -158,10 +174,20 @@ sudo vi /etc/apache2/sites-available/
 ```
 sudo a2enmod rewrite
 ```
+## restart services
+```
+sudo systemctl restart apache2
+sudo systemctl reload  apache2
+```
 
 ## run this ensite
 ```
 sudo a2ensite 000-default.conf
+```
+
+## restart services
+```
+sudo systemctl reload apache2
 ```
 
 ## if you want disable configure
