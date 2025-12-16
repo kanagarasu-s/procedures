@@ -170,7 +170,7 @@ sudo systemctl status apache2
 ## php install
 
 ```
-Install PHP 8.3
+sudo apt install php8.3 -y
 
 ```
 ## Install common extensions
