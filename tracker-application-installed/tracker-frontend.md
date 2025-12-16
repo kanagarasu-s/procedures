@@ -1,28 +1,31 @@
-## tracker-frontend:
-## tracker project location
-
+## Tracker Frontend (Vite / React) – Installation & Deployment Guide:
+## Project Overview
+```
+This document provides step-by-step instructions to install, build, and deploy the **Tracker Frontend** application on **Ubuntu Linux** using **Node.js, PNPM, and Apache**.
+```
+## Project Directory Setup
 ```
  cd /var/www/html
 ```
 
-## clone git repo
-
+## Clone Frontend Repository
 ```
 sudo git clone https://github.com/SQ1Security/tracker-frontend.git
 ```
 
-## Install build essentials
+## Install Build Essentials
 ```
 sudo apt update
 sudo apt install -y build-essential
 ```
+## Install NVM (Node Version Manager)
 
 ## Install NVM (Official Script)
 ```
 sudo curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 ```
 
-## Load NVM into your shell
+## Load NVM into the current shell
 ```
 source ~/.bashrc
 ```
@@ -31,57 +34,60 @@ source ~/.bashrc
 ```
 nvm -v
 ```
+## Install Node.js Using NVM
 
-## Install Node.js with NVM
+## Install latest LTS version
 ```
 nvm install --lts
 ```
 
-## list nvm software
+## List installed Node versions
 ```
 nvm ls
 ```
 
-## Set the application use latest Node version 
+## Use required Node.js version
 ```
 nvm use 24.12.0
 ```
 
-## check and verification node version
+## Verify Node.js version
 ```
 node -v
 ```
 
-## Give ownership to ubuntu user
+## Set Ownership & Permissions
 ```
 sudo chown -R ubuntu:ubuntu /var/www/html/tracker-frontend
 ```
 
-## Set safe permissions
+## Apply safe permissions
 ```
 sudo find /var/www/html/tracker-frontend -type d -exec chmod 755 {} \;
 sudo find /var/www/html/tracker-frontend -type f -exec chmod 644 {} \;
 ```
+## Install PNPM & Dependencies
 
-## Now run pnpm (WITHOUT sudo)
+## Navigate to project directory
 ```
 cd /var/www/html/tracker-frontend
 ```
 
-## install pnpm
+## Install PNPM globally (without sudo)
 ```
 npm install -g pnpm
 ```
 
-## check and version
+## Verify PNPM version
 ```
 pnpm -v
 ```
 
-## install pnpm
+## Install project dependencies
 ```
  pnpm install
 ```
+## Environment Configuration
 
 ## create .env file
 
@@ -101,7 +107,14 @@ VITE_APP_PROMINENCE=17
 VITE_APP_HUMANA_WAVE_2=16
 
 ```
-## create conf file and change servername ip address & name
+## Build Frontend Application
+```
+pnpm run build
+```
+
+## Apache Virtual Host Configuration
+
+## Create / edit Apache site configuration
 ```
 sudo vi /etc/apache2/sites-available/
 ```
@@ -170,22 +183,24 @@ sudo vi /etc/apache2/sites-available/
 </VirtualHost>
 ```
 
-## run this enmod
+## Enable Apache Modules & Site
+
+## Enable rewrite module
 ```
 sudo a2enmod rewrite
 ```
-## restart services
+## Restart Apache
 ```
 sudo systemctl restart apache2
 sudo systemctl reload  apache2
 ```
 
-## run this ensite
+## Enable site
 ```
 sudo a2ensite 000-default.conf
 ```
 
-## restart services
+## Restart Apache
 ```
 sudo systemctl reload apache2
 ```
@@ -201,12 +216,7 @@ sudo systemctl restart apache2
 sudo systemctl reload  apache2
 ```
 
-## build applicaton
-```
-sudo pnpm run build
-```
-
-## copy file .htaccess
+## Copy .htaccess to Build Directory
 ```
 sudo cp .htaccess dist
 ```
