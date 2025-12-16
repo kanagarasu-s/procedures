@@ -15,6 +15,89 @@ mkdir -p /var/www/html
 git clone https://github.com/SQ1Security/tracker-backend-v2.git
 ```
 
+## apache install
+```
+sudo apt install apache2
+```
+
+## apache services status
+```
+sudo systemctl start apache2
+sudo systemctl status apache2
+```
+
+## Install PHP 8.3 on Ubuntu 22.04 / 24.04
+```
+sudo apt update -y
+```
+
+## Install required software
+```
+sudo apt install software-properties-common ca-certificates lsb-release apt-transport-https -y
+```
+
+## php install
+```
+sudo apt install php8.3 -y
+```
+
+## Install common extensions
+```
+sudo apt install php8.3-cli php8.3-common php8.3-fpm php8.3-mbstring php8.3-xml php8.3-mysql php8.3-curl php8.3-zip php8.3-gd php8.3-intl php8.3-opcache -y
+```
+
+## Check version
+```
+php -v
+```
+
+## Install GD for PHP 8.3
+```
+sudo apt update
+sudo apt install php8.3-gd -y
+```
+
+## using Apache
+```
+sudo systemctl restart apache2
+```
+
+## Verify GD installation
+```
+php -m | grep gd
+```
+
+## Download Composer installer
+```
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+```
+
+## Verify installer (recommended)
+```
+php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+
+```
+
+## Install Composer globally
+```
+sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+```
+
+## Remove installer file
+```
+php -r "unlink('composer-setup.php');"
+```
+
+## Check Composer Version
+```
+composer -V
+```
+
+## kindly this step install mysql db
+```
+https://github.com/kanagarasu-s/procedures/blob/main/tracker-application-installed/mysql.md
+```
+
 ## create .env file tracker backend
 ```
 APP_NAME=tracker_v2
@@ -159,102 +242,11 @@ CACHE_DURATION=1
 CACHE_STORE=file
 
 ```
-## apache install
-```
-sudo apt install apache2
-```
 
-## apache services status
-```
-sudo systemctl start apache2
-sudo systemctl status apache2
-```
-
-## Install PHP 8.3 on Ubuntu 22.04 / 24.04
-```
-sudo apt update -y
-```
-
-## Install required software
-```
-sudo apt install software-properties-common ca-certificates lsb-release apt-transport-https -y
-```
-
-## php install
-```
-sudo apt install php8.3 -y
-```
-
-## Install common extensions
-```
-sudo apt install php8.3-cli php8.3-common php8.3-fpm php8.3-mbstring php8.3-xml php8.3-mysql php8.3-curl php8.3-zip php8.3-gd php8.3-intl php8.3-opcache -y
-```
-
-## Check version
-```
-php -v
-```
-
-## Install GD for PHP 8.3
-```
-sudo apt update
-sudo apt install php8.3-gd -y
-```
-
-## using Apache
-```
-sudo systemctl restart apache2
-```
-
-## Verify GD installation
-```
-php -m | grep gd
-```
-
-## Download Composer installer
-```
-php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-```
-
-## Verify installer (recommended)
-```
-php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-
-```
-
-## Install Composer globally
-```
-sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-```
-
-## Remove installer file
-```
-php -r "unlink('composer-setup.php');"
-```
-
-## Check Composer Version
-```
-composer -V
-```
-
-## kindly this step install mysql db
-```
-https://github.com/kanagarasu-s/procedures/blob/main/tracker-application-installed/mysql.md
-```
 
 ## inside the project after load env file then ran "composer update" command
 ```
 composer update
-```
-
-## check .env file database user name password details
-```
-DB_CONNECTION=mysql
-DB_HOST=localhost
-DB_PORT=3306
-DB_DATABASE=tracker_v2
-DB_USERNAME=root
-DB_PASSWORD=Bellita@123
 ```
 
 ## clears all cached data used by Laravel.
