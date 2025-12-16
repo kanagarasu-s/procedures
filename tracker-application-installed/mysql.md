@@ -61,3 +61,4 @@ sudo systemctl restart apache2
 ```
 http://your-server-ip/adminer
 ```
+
