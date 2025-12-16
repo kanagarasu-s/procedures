@@ -404,3 +404,23 @@ return [
 ```
 sudo chmod -R 777 .
 ```
+
+## if backend is not up you will dissite
+```
+sudo a2dissite tracker-backend.conf
+```
+
+## reload 
+```
+sudo systemctl reload apache2
+```
+
+## enable site
+```
+sudo a2ensite tracker-backend.conf
+```
+
+## reload 
+```
+sudo systemctl reload apache2
+```
