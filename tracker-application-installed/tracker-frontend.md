@@ -89,7 +89,7 @@ pnpm -v
 ```
 pnpm install
 ```
-## create conf file
+## create conf file and change servername ip address & name
 ```
 /etc/apache2/sites-available/
 ```
