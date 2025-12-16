@@ -61,4 +61,7 @@ sudo systemctl restart apache2
 ```
 http://your-server-ip/adminer
 ```
-
+## login adminer and check user
+```
+user --> data --> edit --> change username dev.u6@pro1hs.com and save
+```
