@@ -1,17 +1,20 @@
 ## tracker_backend:
 ## tracker project location
 
+## create projectl location
+```
+mkdir -p /var/www/html
+```
 ```
  cd /var/www/html
-
 ```
 
 ## clone git repo
 
 ```
 git clone https://github.com/SQ1Security/tracker-backend-v2.git
-
 ```
+
 ## create .env file tracker backend
 ```
 APP_NAME=tracker_v2
@@ -156,12 +159,11 @@ CACHE_DURATION=1
 CACHE_STORE=file
 
 ```
-
-
 ## apache install
 ```
 sudo apt install apache2
 ```
+
 ## apache services status
 ```
 sudo systemctl start apache2
@@ -172,78 +174,67 @@ sudo systemctl status apache2
 ```
 sudo apt update -y
 ```
+
 ## Install required software
 ```
 sudo apt install software-properties-common ca-certificates lsb-release apt-transport-https -y
 ```
-## php install
 
+## php install
 ```
 sudo apt install php8.3 -y
-
 ```
-## Install common extensions
 
+## Install common extensions
 ```
 sudo apt install php8.3-cli php8.3-common php8.3-fpm php8.3-mbstring php8.3-xml php8.3-mysql php8.3-curl php8.3-zip php8.3-gd php8.3-intl php8.3-opcache -y
-
 ```
-## Check version
 
+## Check version
 ```
 php -v
-
 ```
-## Install GD for PHP 8.3
 
+## Install GD for PHP 8.3
 ```
 sudo apt update
 sudo apt install php8.3-gd -y
-
 ```
-## using Apache
 
+## using Apache
 ```
 sudo systemctl restart apache2
-
 ```
-## Verify GD installation
 
+## Verify GD installation
 ```
 php -m | grep gd
-
 ```
 
 ## Download Composer installer
-
 ```
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-
 ```
-## Verify installer (recommended)
 
+## Verify installer (recommended)
 ```
 php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 
 ```
 
 ## Install Composer globally
-
 ```
 sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-
 ```
-## Remove installer file
 
+## Remove installer file
 ```
 php -r "unlink('composer-setup.php');"
-
 ```
-## Check Composer Version
 
+## Check Composer Version
 ```
 composer -V
-
 ```
 
 ## kindly this step install mysql db
@@ -252,14 +243,11 @@ https://github.com/kanagarasu-s/procedures/blob/main/tracker-application-install
 ```
 
 ## inside the project after load env file then ran "composer update" command
-
 ```
 composer update
-
 ```
 
-## env file database user name password
-
+## check .env file database user name password details
 ```
 DB_CONNECTION=mysql
 DB_HOST=localhost
@@ -267,46 +255,38 @@ DB_PORT=3306
 DB_DATABASE=tracker_v2
 DB_USERNAME=root
 DB_PASSWORD=Bellita@123
-
 ```
 
 ## clears all cached data used by Laravel.
-
 ```
 php artisan optimize:clear
-
 ```
 
 ## generates the encryption keys that Laravel Passport
-
 ```
 php artisan passport:keys
-
 ```
 
 ## all migrations from scratch
-
 ```
 php artisan migrate:fresh --seed
-
 ```
 
 ## creates a personal access client
-
 ```
 php artisan passport:client --personal
 ```
+
 ## enter 
 ```
 authTOKEN
 ```
 
 ## backend configure file
-
 ```
 nano tracker-backend.conf
-
 ```
+
 ```
 <VirtualHost *:8085>
     ServerName example.com
@@ -323,10 +303,12 @@ nano tracker-backend.conf
 </VirtualHost>
 
 ```
+
 ## Enable the site
 ```
 sudo a2ensite tracker-backend.conf
 ```
+
 ## apache service reload
 ```
 sudo systemctl reload apache2
@@ -336,15 +318,58 @@ sudo systemctl reload apache2
 ```
 sudo nano /etc/apache2/ports.conf
 ```
-## Add this line
 
+## Add this line
 ```
 Listen 8085
-
 ```
+
+## create this file location backend cors.php
+```
+cd /var/www/html/tracker-backend/config
+```
+## create cors.php file
+```
+sudo nano cors.php
+```
+```
+<?php
+ 
+return [
+ 
+    /*
+    |--------------------------------------------------------------------------
+    | Cross-Origin Resource Sharing (CORS) Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Here you may configure your settings for cross-origin resource sharing
+    | or "CORS". This determines what cross-origin operations may execute
+    | in web browsers. You are free to adjust these settings as needed.
+    |
+    | To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+    |
+    */
+ 
+    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+ 
+    'allowed_methods' => ['*'],
+ 
+    'allowed_origins' => ['*'],
+ 
+    'allowed_origins_patterns' => [],
+ 
+    'allowed_headers' => ['*'],
+ 
+    'exposed_headers' => [],
+ 
+    'max_age' => 0,
+ 
+    'supports_credentials' => true,
+ 
+];
+```
+
 ## this directory primission /tracker-backend-v2
-
 ```
-sudo chmod -R 777 storage/
-
+sudo chmod -R 777 .
 ```
