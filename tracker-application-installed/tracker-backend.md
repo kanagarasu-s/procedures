@@ -246,6 +246,11 @@ composer -V
 
 ```
 
+## kindly this step install mysql db
+```
+https://github.com/kanagarasu-s/procedures/blob/main/tracker-application-installed/mysql.md
+```
+
 ## inside the project after load env file then ran "composer update" command
 
 ```
@@ -289,11 +294,12 @@ php artisan migrate:fresh --seed
 ## creates a personal access client
 
 ```
-
 php artisan passport:client --personal
-
 ```
-
+## enter 
+```
+authTOKEN
+```
 
 ## backend configure file
 
@@ -318,22 +324,17 @@ nano tracker-backend.conf
 
 ```
 ## Enable the site
-
 ```
 sudo a2ensite tracker-backend.conf
-
 ```
 ## apache service reload
-
 ```
 sudo systemctl reload apache2
-
 ```
-## Make Apache listen on port 8085
 
+## Make Apache listen on port 8085
 ```
 sudo nano /etc/apache2/ports.conf
-
 ```
 ## Add this line
 
