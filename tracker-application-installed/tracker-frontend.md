@@ -24,12 +24,12 @@ sudo curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | 
 
 ## Load NVM into your shell
 ```
-sudo source ~/.bashrc
+source ~/.bashrc
 ```
 
 ## Verify NVM installation
 ```
-sudo nvm -v
+nvm -v
 ```
 
 ## Install Node.js with NVM
