@@ -167,6 +167,15 @@ sudo apt install apache2
 sudo systemctl start apache2
 sudo systemctl status apache2
 ```
+
+## Install PHP 8.3 on Ubuntu 22.04 / 24.04
+```
+sudo apt update -y
+```
+## Install required software
+```
+sudo apt install software-properties-common ca-certificates lsb-release apt-transport-https -y
+```
 ## php install
 
 ```
