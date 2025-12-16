@@ -85,12 +85,12 @@ sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
 ## Remove installer file
 ```
-php -r "unlink('composer-setup.php');"
+sudo php -r "unlink('composer-setup.php');"
 ```
 
 ## Check Composer Version
 ```
-composer -V
+sudo composer -V
 ```
 
 ## kindly this step install mysql db
@@ -251,27 +251,32 @@ CACHE_STORE=file
 
 ## inside the project after load env file then ran "composer update" command
 ```
-composer update
+sudo composer update
 ```
 
 ## clears all cached data used by Laravel.
 ```
-php artisan optimize:clear
+sudo php artisan optimize:clear
 ```
 
 ## generates the encryption keys that Laravel Passport
 ```
-php artisan passport:keys
+sudo php artisan passport:keys
 ```
 
-## all migrations from scratch
+## php migration
 ```
-php artisan migrate:fresh --seed
+sudo php artisan migrate
+```
+
+## user migrations from scratch
+```
+sudo php artisan migrate:fresh --seed
 ```
 
 ## creates a personal access client
 ```
-php artisan passport:client --personal
+sudo php artisan passport:client --personal
 ```
 
 ## enter 
