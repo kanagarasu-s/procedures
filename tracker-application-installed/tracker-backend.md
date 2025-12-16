@@ -286,7 +286,7 @@ authTOKEN
 
 ## backend configure file
 ```
-nano /etc/apache2/sites-available/tracker-backend.conf
+sudo vi /etc/apache2/sites-available/tracker-backend.conf
 ```
 
 ```
