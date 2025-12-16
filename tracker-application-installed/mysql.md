@@ -4,7 +4,7 @@ MySQL db install:
 ## MySQL installed
 
 ```
-sudo apt install mysql-server
+sudo apt install mysql-server -y
 
 ```
 ## check and verification mysql
