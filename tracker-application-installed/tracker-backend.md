@@ -1,63 +1,64 @@
-## tracker_backend:
-## tracker project location
+## Tracker Backend (Laravel) – Installation & Configuration Guide
+## Project Overview
+```
+This document describes the step-by-step procedure to install and configure the **Tracker Backend (Laravel)** application on **Ubuntu 22.04 / 24.04** using **Apache, PHP 8.3, MySQL, and Composer**.
+```
+## Project Directory Setup
 
-## create projectl location
+## Create project directory
 ```
 mkdir -p /var/www/html
-```
-```
- cd /var/www/html
+cd /var/www/html
 ```
 
-## clone git repo
-
+## Clone Backend Repository
 ```
 git clone https://github.com/SQ1Security/tracker-backend-v2.git
 ```
-
-## apache install
+## Apache Web Server Installation
+## Install Apache
 ```
 sudo apt install apache2 -y
 ```
 
-## apache services status
+## Start and check Apache status
 ```
 sudo systemctl start apache2
 sudo systemctl status apache2
 ```
-
-## Install PHP 8.3 on Ubuntu 22.04 / 24.04
+## PHP 8.3 Installation (Ubuntu 22.04 / 24.04)
+## Update system
 ```
 sudo apt update -y
 ```
 
-## Install required software
+## Install required dependencies
 ```
 sudo apt install software-properties-common ca-certificates lsb-release apt-transport-https -y
 ```
 
-## php install
+## Install PHP 8.3
 ```
 sudo apt install php8.3 -y
 ```
 
-## Install common extensions
+## Install PHP extensions
 ```
 sudo apt install php8.3-cli php8.3-common php8.3-fpm php8.3-mbstring php8.3-xml php8.3-mysql php8.3-curl php8.3-zip php8.3-gd php8.3-intl php8.3-opcache -y
 ```
 
-## Check version
+## Verify PHP version
 ```
 php -v
 ```
 
-## Install GD for PHP 8.3
+## Install and verify GD extension
 ```
 sudo apt update
 sudo apt install php8.3-gd -y
 ```
 
-## using Apache
+## Restart Apache
 ```
 sudo systemctl restart apache2
 ```
@@ -66,6 +67,7 @@ sudo systemctl restart apache2
 ```
 php -m | grep gd
 ```
+## Composer Installation
 
 ## Download Composer installer
 ```
@@ -83,21 +85,24 @@ php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents
 sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 ```
 
-## Remove installer file
+## Remove installer
 ```
 sudo php -r "unlink('composer-setup.php');"
 ```
 
-## Check Composer Version
+## Verify Composer version
 ```
 sudo composer -V
 ```
+## MySQL Database Setup
 
-## kindly this step install mysql db
+## Install MySQL by following the below document:
 ```
 https://github.com/kanagarasu-s/procedures/blob/main/tracker-application-installed/mysql.md
 ```
-## projectl location
+## Application Environment Configuration
+
+## Navigate to project directory
 ```
 sudo cd /var/www/html/tracker-backend-v2
 ```
@@ -107,7 +112,7 @@ sudo cd /var/www/html/tracker-backend-v2
 sudo nano .env
 ```
 
-## create .env file tracker backend
+## Sample .env configuration tracker-backend
 ```
 APP_NAME=tracker_v2
 APP_ENV=local
@@ -252,33 +257,36 @@ CACHE_STORE=file
 
 ```
 
+## Dependency Installation
 
-## inside the project after load env file then ran "composer update" command
+## Install PHP dependencies
 ```
 sudo composer update
 ```
 
-## clears all cached data used by Laravel.
+## Laravel Application Setup
+
+## Clear cache
 ```
 sudo php artisan optimize:clear
 ```
 
-## generates the encryption keys that Laravel Passport
+## Generate Passport keys
 ```
 sudo php artisan passport:keys
 ```
 
-## php migration
+## Run migrations
 ```
 sudo php artisan migrate
 ```
 
-## user migrations from scratch
+## Fresh migration with seed
 ```
 sudo php artisan migrate:fresh --seed
 ```
 
-## creates a personal access client
+## Create Passport personal access client
 ```
 sudo php artisan passport:client --personal
 ```
@@ -287,8 +295,9 @@ sudo php artisan passport:client --personal
 ```
 authTOKEN
 ```
+## Apache Virtual Host Configuration
 
-## backend configure file location
+## Create virtual host file
 ```
 sudo vi /etc/apache2/sites-available/tracker-backend.conf
 ```
@@ -339,32 +348,33 @@ sudo vi /etc/apache2/sites-available/tracker-backend.conf
 cd /var/www/html/tracker-backend-v2
 ```
 
-## Enable the site
+## Enable Site & Configure Port
 ```
 sudo a2ensite tracker-backend.conf
-```
-
-## apache service reload
-```
 sudo systemctl reload apache2
 ```
 
-## Make Apache listen on port 8082
+## Configure Apache to listen on port 8082
 ```
 sudo nano /etc/apache2/ports.conf
 ```
-
-## Add this line
+## Add:
 ```
 Listen 8082
+```
+## Reload Apache:
+```
+sudo systemctl reload apache2
 ```
 
 ## create this file location backend cors.php
 ```
 cd /var/www/html/tracker-backend-v2/config
 ```
-## create cors.php file
+## CORS Configuration
+## Create CORS config file
 ```
+cd /var/www/html/tracker-backend-v2/config
 sudo nano cors.php
 ```
 ```
@@ -404,27 +414,28 @@ return [
 ];
 ```
 
-## this directory primission /tracker-backend-v2
+## File Permissions
 ```
 sudo chmod -R 777 .
 ```
+## Apache Troubleshooting Commands
 
-## if backend is not up you will dissite
+## Disable site
 ```
 sudo a2dissite tracker-backend.conf
 ```
 
-## reload 
+## Reload Apache
 ```
 sudo systemctl reload apache2
 ```
 
-## enable site
+## Enable site
 ```
 sudo a2ensite tracker-backend.conf
 ```
 
-## reload 
+## Reload Apache
 ```
 sudo systemctl reload apache2
 ```
