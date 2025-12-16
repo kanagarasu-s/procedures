@@ -2,7 +2,7 @@
 ## tracker project location
 
 ```
- /var/www/html
+ cd /var/www/html
 
 ```
 
