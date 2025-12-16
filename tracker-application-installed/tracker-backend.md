@@ -98,6 +98,11 @@ composer -V
 https://github.com/kanagarasu-s/procedures/blob/main/tracker-application-installed/mysql.md
 ```
 
+## create .env file
+```
+sudo nano .env
+```
+
 ## create .env file tracker backend
 ```
 APP_NAME=tracker_v2
