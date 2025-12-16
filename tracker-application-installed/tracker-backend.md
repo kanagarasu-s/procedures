@@ -286,11 +286,11 @@ authTOKEN
 
 ## backend configure file
 ```
-nano /etc/apache2/sites-availabletracker-backend.conf
+nano /etc/apache2/sites-available/tracker-backend.conf
 ```
 
 ```
-<VirtualHost *:8085>
+<VirtualHost *:8082>
         # The ServerName directive sets the request scheme, hostname and port that
         # the server uses to identify itself. This is used when creating
         # redirection URLs. In the context of virtual hosts, the ServerName
@@ -330,6 +330,10 @@ nano /etc/apache2/sites-availabletracker-backend.conf
 
 
 ```
+## go to application location
+```
+cd /var/www/html/tracker-backend
+```
 
 ## Enable the site
 ```
@@ -341,14 +345,14 @@ sudo a2ensite tracker-backend.conf
 sudo systemctl reload apache2
 ```
 
-## Make Apache listen on port 8085
+## Make Apache listen on port 8082
 ```
 sudo nano /etc/apache2/ports.conf
 ```
 
 ## Add this line
 ```
-Listen 8085
+Listen 8082
 ```
 
 ## create this file location backend cors.php
