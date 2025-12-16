@@ -10,7 +10,7 @@ sudo apt install mysql-server
 ## login MySQL
 
 ```
-sudo MySQL
+sudo mysql
 
 ```
 
