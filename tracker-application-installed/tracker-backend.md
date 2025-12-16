@@ -112,7 +112,7 @@ sudo cd /var/www/html/tracker-backend-v2
 sudo nano .env
 ```
 
-## Sample .env configuration tracker-backend
+## .env configuration tracker-backend
 ```
 APP_NAME=tracker_v2
 APP_ENV=local
@@ -343,7 +343,7 @@ sudo vi /etc/apache2/sites-available/tracker-backend.conf
 
 
 ```
-## go to application location
+## go to project directory
 ```
 cd /var/www/html/tracker-backend-v2
 ```
