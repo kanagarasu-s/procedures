@@ -18,12 +18,18 @@ mysql --version
 sudo mysql
 ```
 
-## create user and privilages in MySQL
+## Change authentication plugin in MySQL
 
 ```
-ALTER USER 'root'@'localhost' IDENTIFIED BY 'Bellita@123';
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
+ALTER USER 'root'@'localhost'
+IDENTIFIED WITH mysql_native_password
+BY 'Bellita@123';
+
+```
+## Apply changes
+```
 FLUSH PRIVILEGES;
+EXIT;
 ```
 
 ## verify login 
