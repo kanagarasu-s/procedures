@@ -63,5 +63,5 @@ http://your-server-ip/adminer
 ```
 ## login adminer and check user
 ```
-user --> data --> edit --> change username dev.u6@pro1hs.com and save
+user --> select data --> edit --> change username dev.u6@pro1hs.com and save
 ```
