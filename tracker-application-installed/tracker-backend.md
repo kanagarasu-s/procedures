@@ -366,11 +366,6 @@ Listen 8082
 ```
 sudo systemctl reload apache2
 ```
-
-## create this file location backend cors.php
-```
-cd /var/www/html/tracker-backend-v2/config
-```
 ## CORS Configuration
 ## Create CORS config file
 ```
