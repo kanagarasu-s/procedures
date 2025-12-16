@@ -17,7 +17,7 @@ git clone https://github.com/SQ1Security/tracker-backend-v2.git
 
 ## apache install
 ```
-sudo apt install apache2
+sudo apt install apache2 -y
 ```
 
 ## apache services status
