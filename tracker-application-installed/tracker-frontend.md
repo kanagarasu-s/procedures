@@ -34,27 +34,27 @@ nvm -v
 
 ## Install Node.js with NVM
 ```
-sudo nvm install --lts
+nvm install --lts
 ```
 
 ## list nvm software
 ```
-sudo nvm ls
+nvm ls
 ```
 
 ## Set the application use latest Node version 
 ```
-sudo nvm use latest version 
+nvm use latest version 
 ```
 
 ## check and verification node version
 ```
-sudo node -v
+node -v
 ```
 
 ## install pnpm
 ```
-sudo npm install -g pnpm
+npm install -g pnpm
 ```
 
 ## check and version
