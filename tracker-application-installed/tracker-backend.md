@@ -13,7 +13,7 @@ cd /var/www/html
 
 ## Clone Backend Repository
 ```
-git clone https://github.com/SQ1Security/tracker-backend-v2.git
+sudo git clone https://github.com/SQ1Security/tracker-backend-v2.git
 ```
 ## Apache Web Server Installation
 ## Install Apache
