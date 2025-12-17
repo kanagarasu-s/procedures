@@ -1,24 +1,27 @@
-MySQL db install:
-=================
+## MySQL Database Installation & Adminer Configuration Guide
+## Overview
+```
+This document describes the step-by-step procedure to install and configure **MySQL Server** and **Adminer** on an **Ubuntu Linux server** for application database management.
+```
 
-## MySQL installed
+## Install MySQL Server
 
 ```
 sudo apt install mysql-server -y
 
 ```
-## check and verification mysql
+## Verify MySQL Installation
 ```
 mysql --version
 ```
 
-## login MySQL
+## Login to MySQL (Root User)
 
 ```
 sudo mysql
 ```
 
-## Change authentication plugin in MySQL
+## Configure MySQL Root Authentication
 
 ```
 ALTER USER 'root'@'localhost'
@@ -26,42 +29,43 @@ IDENTIFIED WITH mysql_native_password
 BY 'Bellita@123';
 
 ```
-## Apply changes
+## Apply Changes & Exit
 ```
 FLUSH PRIVILEGES;
 EXIT;
 ```
 
-## verify login 
+## Verify MySQL Login Using Password
 ```
 mysql -u root -p
 ```
 
-## mysql password
+## Enter password:
 ```
 Bellita@123
 ```
 
-## Install Adminer Using apt
+## Install Adminer
 ```
 sudo apt install adminer -y
 ```
 
-## Enable the Adminer Apache configuration
+## Enable Adminer Apache Configuration
 ```
 sudo a2enconf adminer
 ```
 
-## Restart Apache
+## Restart Apache Service
 ```
 sudo systemctl restart apache2
 ```
 
-## Open Adminer in browser
+## Access Adminer Web Interface
 ```
 http://your-server-ip/adminer
 ```
-## login adminer and check user
+## Adminer User Verification
 ```
-user --> select data --> edit --> change username dev.u6@pro1hs.com and save
+Login → Select database → Users → Select user
+→ Edit → Change username to dev.u6@pro1hs.com → Save
 ```
