@@ -7,8 +7,8 @@ This document describes the step-by-step procedure to install and configure the 
 
 ## Create project directory
 ```
-mkdir -p /var/www/html
-cd /var/www/html
+sduo mkdir -p /var/www/html
+sudo cd /var/www/html
 ```
 
 ## Clone Backend Repository
