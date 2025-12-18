@@ -1,0 +1,13 @@
+services:
+  tracker-frontend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "80:80"
+    networks:
+      - tracker_net
+
+networks:
+  tracker_net:
+    external: true
