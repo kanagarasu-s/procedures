@@ -46,7 +46,7 @@ sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
 #### Create the service unit:
 
 ```sh
-sudo vim /etc/systemd/system/node_exporter.service
+sudo nano /etc/systemd/system/node_exporter.service
 ```
 #### Paste the following:
 
@@ -76,6 +76,11 @@ sudo systemctl start node_exporter
 
 ```sh
 sudo systemctl status node_exporter
+```
+#### Check the node exporter version:
+
+```sh
+/usr/local/bin/node_exporter --version
 ```
 ### 6️⃣ Verify Node Exporter is Running
 #### Open in browser:
