@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: ./docker/dockerfiles/DockerfilePHP
+      args:
+        buildno: 1.0
+    container_name: tracker-backend-v2-php
+    restart: always
+    ports:
+      - "8085:80"
+    volumes:
+      - .:/var/www/html
+      - ./phpmyadmin-php.ini:/usr/local/etc/php/conf.d/uploads.ini
+    working_dir: /var/www/html
+    networks:
+      - tracker-net
+    command: >
+      bash -c "
+      echo '🔧 Setting permissions...' &&
+      chown -R www-data:www-data storage bootstrap/cache &&
+      chmod -R 775 storage bootstrap/cache &&
+
+      echo '📦 Installing Composer dependencies...' &&
+      composer install --no-interaction --prefer-dist || true &&
+
+      echo '⏳ Waiting for MySQL...' &&
+      until php artisan migrate:status > /dev/null 2>&1; do
+        echo 'MySQL not ready yet...';
+        sleep 3;
+      done &&
+
+      echo '🧹 Clearing Laravel cache...' &&
+      php artisan optimize:clear || true &&
+
+      echo '🗄️ Running database migrations...' &&
+      php artisan migrate --force || true &&
+
+      echo '🔑 Generating Passport keys...' &&
+      php artisan passport:keys --force || true &&
+
+      echo '🚀 Starting Apache...' &&
+      apache2-foreground
+      "
+
+networks:
+  tracker-net:
+    external: true
