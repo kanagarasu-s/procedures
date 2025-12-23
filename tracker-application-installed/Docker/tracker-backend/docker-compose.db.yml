@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: tracker-mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: sq1dev@Pro1
+      MYSQL_DATABASE: tracker_v2
+    volumes:
+      - ./docker/mysqldata:/var/lib/mysql
+      - ./docker/mysql/createDevDB.sql:/docker-entrypoint-initdb.d/init1.sql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - tracker-net
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: tracker-phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: sq1dev@Pro1
+    ports:
+      - "8086:80"
+    depends_on:
+      - db
+    networks:
+      - tracker-net
+
+networks:
+  tracker-net:
+    name: tracker-net
+    driver: bridge
