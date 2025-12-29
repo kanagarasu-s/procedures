@@ -36,7 +36,7 @@ mysql -h db-1-instance-1.cc9kkacauxks.us-east-1.rds.amazonaws.com \
 SHOW DATABASES;
 ```
 
-## If required, create the database in RDS:
+## Create Application Database (If Not Exists)
 ```
 CREATE DATABASE tracker_v2;
 ```
@@ -51,10 +51,11 @@ show databases;
 exit
 ```
 
-## backup database file transfer to ec2-instance
+## Transfer Database Backup File to EC2 Instance
 ```
-/home/ubuntu
+/home/ubuntu/tracker_v2.sql
 ```
+
 ## Import the database:
 ```
 mysql -h db-1-instance-1.cc9kkacauxks.us-east-1.rds.amazonaws.com \
@@ -62,6 +63,7 @@ mysql -h db-1-instance-1.cc9kkacauxks.us-east-1.rds.amazonaws.com \
      -p \
      tracker_v2 < ./tracker_v2.sql
 ```
+
 ## Enter the RDS password when prompted.
 
 ## Verify Imported Database
@@ -70,7 +72,9 @@ mysql -h db-1-instance-1.cc9kkacauxks.us-east-1.rds.amazonaws.com \
       -u admin \
       -p
 ```
+
 ## Enter the RDS password when prompted.
+
 
 ## check and verficied database
 ```
@@ -82,6 +86,7 @@ show databases;
 USE tracker_v2;
 SHOW TABLES;
 ```
+
 ## exit
 ```
 exit
