@@ -9,11 +9,12 @@ Linux server with sudo access (Ubuntu/Debian)
 Network connectivity to AWS RDS (Security Group allows port 3306)
 RDS endpoint, username, and password
 MySQL database backup file (.sql)
+Backup file transferred to the EC2 instance
 ```
 
 ## Install MySQL Client
 ```
- sudo apt update
+sudo apt update
 sudo apt install -y mysql-client
 ```
 
