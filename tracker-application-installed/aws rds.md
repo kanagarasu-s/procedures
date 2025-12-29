@@ -1,58 +1,86 @@
-## mysql client install and import database in aws rds service
+## Install MySQL Client and Import Database into AWS RDS
+## 1. Purpose
+```
+This document describes the procedure to install the MySQL client on a Linux server and import an existing MySQL database into an AWS RDS MySQL instance.
+```
+## 2. Prerequisites
+```
+Linux server with sudo access (Ubuntu/Debian)
+Network connectivity to AWS RDS (Security Group allows port 3306)
+RDS endpoint, username, and password
+MySQL database backup file (.sql)
+```
 
-## install mysql client
+## Install MySQL Client
 ```
- sudo apt install -y mysql-client
+ sudo apt update
+sudo apt install -y mysql-client
 ```
-## login mysql
+
+## Verify installation:
 ```
-mysql -u root -p
+mysql --version
 ```
-## enter mysql login password
+
+## Connect to AWS RDS MySQL Instance
 ```
-mysql password
+mysql -h db-1-instance-1.cc9kkacauxks.us-east-1.rds.amazonaws.com \
+      -u admin \
+      -p
 ```
-## create database application db
+
+## Enter the RDS password when prompted.
+
+## Verify Database in RDS
+```
+SHOW DATABASES;
+```
+
+## If required, create the database in RDS:
 ```
 CREATE DATABASE tracker_v2;
 ```
+
 ## verified database in mysql
 ```
 show databases;
 ```
+
+## Exit:
 ```
 exit
 ```
-## check connect in AWS RDS 
+
+## backup database file transfer to ec2-instance
 ```
-mysql -h db-1-instance-1.cc9kkacauxks.us-east-1.rds.amazonaws.com -u admin -p
+/home/ubuntu
 ```
-## enter password
-```
-password
-```
-## you already export mysql database backup to import this command
+## Import the database:
 ```
 mysql -h db-1-instance-1.cc9kkacauxks.us-east-1.rds.amazonaws.com \
      -u admin \
      -p \
      tracker_v2 < ./tracker_v2.sql
 ```
-## enter password
+## Enter the RDS password when prompted.
+
+## Verify Imported Database
 ```
-rds password
+mysql -h db-1-instance-1.cc9kkacauxks.us-east-1.rds.amazonaws.com \
+      -u admin \
+      -p
 ```
+## Enter the RDS password when prompted.
+
 ## check and verficied database
 ```
 show databases;
 ```
-## that database use
+
+## Check database and tables:
 ```
-use tracker_v2
-```
-## verified database inside tables
-```
-show tables;
+USE tracker_v2;
+SHOW TABLES;
 ```
 ## exit
 ```
