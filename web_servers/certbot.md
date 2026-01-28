@@ -39,16 +39,25 @@ If your domain points directly to your server (if proxied by Cloudflare-Temporar
 ```sh
 sudo certbot --nginx -d grafana.bellita.co.in
 ```
-
 Certbot runs its own temporary web server (on port 80), You do not need Nginx.
 ```sh
 sudo certbot certonly --standalone
+```
+Reissue the certificate with an extra Server Name(multiple SA-N in single config/Cert:
+```sh
+certbot certonly \
+  --nginx \
+  -d apis.bellita.co.in \
+  -d back1919.bellita.co.in \
+  -d back2929.trstscore.com
 ```
 Test SSL from Terminal
 ```sh
 curl -Iv https://demo1.trstscore.com
 ```
-
+```sh
+curl -I https://cron2626.trstscore.com
+```
 ### 🔁 STEP 6 — Test automatic renewal of SSL Cert  
 
 You don’t need to enable certbot.timer manually. Snap’s Certbot automatically sets up a renewal service internally.  
